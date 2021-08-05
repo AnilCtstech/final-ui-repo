@@ -20,6 +20,7 @@ import { DiagnosisComponent } from './patient-visit/diagnosis/diagnosis.componen
 import { PatientVisitComponent } from './patient-visit/patient-visit.component';
 import { VisitDetailsComponent } from './patient-visit/view/visit-details/visit-details.component';
 import { PatientManagementComponent } from './patient-management/patient-management.component';
+import { AdminDasboardComponent } from './admin-dasboard/admin-dasboard.component';
 
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
 
   {path:'appointment/add',component:PhysianAppointmentComponent},
   {path:'patient/show',component:PatientManagementComponent},
+  {path:'admin',component:AdminDasboardComponent},
 
 
 

@@ -47,6 +47,8 @@ import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { Ng2OrderModule } from 'ng2-order-pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { SendNoteComponent } from './note/send-note/send-note.component';
+import { AdminDasboardComponent } from './admin-dasboard/admin-dasboard.component';
+import {ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -77,6 +79,7 @@ import { SendNoteComponent } from './note/send-note/send-note.component';
     VitalSignsComponent,
     VisitDetailsComponent,
     PatientManagementComponent,
+    AdminDasboardComponent,
     
   
     
@@ -98,6 +101,7 @@ import { SendNoteComponent } from './note/send-note/send-note.component';
     Ng2SearchPipeModule,
     Ng2OrderModule,
     NgxPaginationModule,
+    ChartsModule,
     
 
 

@@ -12,10 +12,10 @@
             <div class="form-signin left_space" >
                 <form (ngSubmit)="onSubmit(credentials)" #credentials="ngForm">
                     <h3 class="h3 mb-3 fw-normal">SIGN IN</h3>
-                    <div class="form-floating">
+                    <div class="form-floating inner-addon right-addon">
                         <label for="floatingInput">Email address</label>
                         <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-                            name="email" ngModel required email #email="ngModel">
+                            name="email" ngModel required email #email="ngModel"><i class="fas fa-envelope new"></i>
                         <span class="validation_error_red" *ngIf="!email.valid && email.touched">Please enter valid
                             email address!</span>
 
