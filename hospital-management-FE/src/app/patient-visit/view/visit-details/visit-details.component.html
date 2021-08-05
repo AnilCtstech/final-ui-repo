@@ -1,0 +1,175 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="order-md-first">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col center order-md-last ">
+
+    <h1>Patient Visit Details</h1>
+  
+  <table class="table table-bordered table-striped table-hover">
+  <thead>
+    <tr>
+      <th>Patient Name</th>
+      <th>Email</th>
+      <th>Vitals</th>
+      <th>Medication</th>
+      <th>Diagnosis</th>
+      <th>Procedure</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let patient of patients">
+        <td>{{patient.firstName}} {{patient.lastName}}</td>
+        <td>{{patient.email}}</td>
+        <td><button type="button" class="btn btn-primary btn-sm"(click)="viewVitals(vitalContent,patient.patientId);">View</button>
+        <td><button type="button" class="btn btn-primary btn-sm"(click)="viewMedication(medicationContent,patient.patientId);">View</button>
+        <td><button type="button" class="btn btn-primary btn-sm" (click)="viewDiagnosis(diagnosisContent,patient.patientId)">View </button>
+        <td><button type="button" class="btn btn-primary btn-sm"(click)="viewProcedure(procedureContent,patient.patientId);">View</button>
+        </td>
+    </tr>
+  </tbody>
+  </table>
+  <ng-template #vitalContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Vital Signs</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>      
+            <th>Height(CM)</th>
+            <th>Weight(KG)</th>   
+            <th>Blood Pressure(mmHg)</th> 
+            <th>Body Temperature(Farenheit)</th> 
+            <th>Respiration Rate(Bpm)</th> 
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let vitalSign of vitalSigns">
+              <!-- <td>{{vitalSign.createdAt | date : 'short' }}</td> -->
+              <td>{{vitalSign.height }}</td>       
+              <td>{{vitalSign.weight }}</td> 
+              <td>{{vitalSign.bloodPressure }}</td> 
+              <td>{{vitalSign.bodyTemperature }}</td> 
+              <td>{{vitalSign.respirationRate }}</td>    
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('close')">Close</button>
+    </div>
+  </ng-template>
+  <ng-template #diagnosisContent  let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Diagnosis Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>      
+            <th>Date</th>
+            <th>Code</th>
+            <th>Description</th>    
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let diagnoses of diagnosis">
+              <td>{{diagnoses.createdAt | date : 'short' }}</td>
+              <td>{{diagnoses.diagnosisCode}}</td>         
+              <td>{{diagnoses.diagnosisDescription }}</td>         
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('close')">Close</button>
+    </div>
+  </ng-template>
+  <ng-template  #medicationContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Medication Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>      
+            <th>Drug Id</th>
+            <th>Drug Name</th>
+            <th>Drug Generic Name</th>  
+            <th>Drug Strength</th>
+            <th>Drug Form</th>
+          
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let medication of medications">
+              <!-- <td>{{medication.createdAt | date : 'short' }}</td> -->
+              <td>{{medication.drugId}}</td>         
+              <td>{{medication.drugName}}</td> 
+              <td>{{medication.drugGenericName}}</td> 
+              <td>{{medication.drugStrength}}</td> 
+              <td>{{medication.drugForm}}</td>      
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('close')">Close</button>
+    </div>
+  </ng-template>
+  <ng-template #procedureContent let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Procedure Details</h4>
+      <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <table class="table table-bordered table-striped table-hover">
+        <thead>
+          <tr>      
+            <th>Procedure Code</th>
+            <th>Procedure Description</th>
+            <th>Is Procedure Depricated </th>    
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let procedure of procedures">
+              <!-- <td>{{diagnoses.createdAt | date : 'short' }}</td> -->
+              <td>{{procedure.procedureCode}}</td>         
+              <td>{{procedure.procedureDescription }}</td>   
+              <td>{{procedure.procedureIsdeprecated}}</td>          
+          </tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close('close')">Close</button>
+    </div>
+  </ng-template>
+  <ngb-pagination id="pgination" [collectionSize]="collectionSize"  [(page)]="page"  (pageChange)="nextPage(page)"></ngb-pagination>
+  <div class="p-4"></div>
+  <div class="p-4"></div>
+  <div class="p-4"></div>
+  <div class="p-4"></div>
+  <div class="p-4"></div>
+  <div class="p-4"></div>
+  <div class="p-4"></div>
+  <div class="p-4"></div>
+
+</div>    
+</div>
+</div>

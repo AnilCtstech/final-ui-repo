@@ -1,0 +1,72 @@
+<div>   <h4 class="mb-3">Diagnosis Details</h4>
+       <form class="needs-validation" novalidate>
+         <div class="row g-3">   
+           <div class="col-sm-4 form-group">
+               <label for="diagnosisCode" class="form-label">Diagnosis Code</label>
+               <input id="diagnosisCode"  type="text" class="form-control" name="diagnosisCode " placeholder="Diagnosis Code"
+                       [(ngModel)]="diagnosis"
+                       [ngbTypeahead]="searchCode"
+                       [editable]='false'
+                       [inputFormatter]="inputCodeFormatValue"
+                       [resultFormatter]="resultCodeFormatValue"
+                       />
+           </div><br>
+           <div class="col-sm-8">
+               <label for="diagnosisDescription" class="form-label">Description</label>
+               <input id="diagnosisDescription"  type="text" class="form-control" name="diagnosisDescription"  placeholder="Description"
+               [(ngModel)]="diagnosis"
+               [ngbTypeahead]="searchDescription"
+               [editable]='false'
+               [inputFormatter]="inputDescriptionFormatValue"
+               [resultFormatter]="resultDescriptionFormatValue"
+               />
+           </div><br>           
+           <div class="col-sm-6"><br>
+             <label for="isDepricated" class="form-label">Diagnosis is depricated?</label>
+               <div class="radio" >
+                 <label>
+                 <input type="radio" name="isDepricated" [(ngModel)]="isDepricated" id="diagoDepricated1" value="true">
+                 Yes
+                 </label>
+             </div>
+             <div class="radio">
+                 <label>
+                 <input type="radio" name="isDepricated" [(ngModel)]="isDepricated" id="diagoDepricated2" value="false" checked>
+                 No
+                 </label>
+             </div>
+           </div>
+           
+       </div>
+       <br>
+       <button class="w-5 btn btn-primary btn-lg" (click)="addDiagnoses()" type="button">Save</button>&nbsp;
+       <button class="w-10 btn btn-primary btn-lg" (click)="onSubmit()" [disabled]="submitCount>0" type="button">Submit</button>
+       </form><br>
+     
+     <div style="text-align:center">
+       <table *ngIf="index>0"  class="table table-bordered table-striped table-hover">
+         <thead>
+             <tr>
+              <th>Diagnosis Code</th>
+              <th>Description</th>
+              <th>Is Depricated</th>
+              <th>Action</th>
+    
+             </tr>
+         </thead>
+         <tbody>
+          <tr *ngFor="let diagno of diagnosis1; let i=index;">
+            <td>{{diagno.diagnosisCode}}</td>
+            <td>{{diagno.diagnosisDescription}}</td>
+            <td>{{diagno.diagnosisIsdeprecated}}</td>           
+            <td><i (click)="removeDiagnoses(i)"  class="fas fa-trash"></i></td>
+            </tr>                   
+         </tbody>
+         </table>
+     
+       <!-- <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls> -->
+     
+     </div><hr>
+    
+     
+   </div>

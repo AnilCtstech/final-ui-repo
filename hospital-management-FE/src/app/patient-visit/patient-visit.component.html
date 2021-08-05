@@ -1,0 +1,30 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="order-md-first">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-8 center">
+            <h2 class="mb-3">Patient Visit Details</h2>
+            <form>
+                <div class="form-group">
+                    <label for="patientName">Patient Name</label>
+                    <input id="patientName"  type="text" class="form-control" name="searchName" placeholder="Search Name"
+                    (ngModelChange)="extractPatientId($event)"
+                    [(ngModel)]="profile"
+                            [ngbTypeahead]="searchName"
+                            [editable]='false'
+                            [inputFormatter]="inputFullNameValue"
+                            [resultFormatter]="resultFullNameValue"
+                            />
+                </div>
+            </form><hr>
+            <app-vital-signs [patientId]="patientId"></app-vital-signs>
+            <app-diagnosis [patientId]="patientId"></app-diagnosis>  
+            <app-procedure [patientId]="patientId"></app-procedure>  
+            <app-medication [patientId]="patientId"></app-medication>        
+        </div>
+    </div>
+</div>

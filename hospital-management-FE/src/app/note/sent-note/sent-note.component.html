@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="order-md-first ">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col center order-md-last ">
+
+      <h1 class="upper_space">Sent Notes</h1>
+
+      <table class="table table-bordered table-striped table-hover upper_space_2">
+        <thead>
+          <tr>
+            <th>Reciever's Name</th>
+            <th>Designation</th>
+            <th>Notes</th>
+            <th>Urgency</th>
+            <th>Date</th>
+            <th>Response</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let sentNote of sentNotes">
+            <td>{{sentNote.toEmployee}}</td>
+            <td>{{sentNote.role}}</td>
+            <td>{{sentNote.message}}</td>
+            <td>{{sentNote.urgency}}</td>
+            <td>{{sentNote.dateTime | date : 'short'}}</td>
+            <td><button type="button" class="btn btn-primary btn-sm"
+                (click)="onSelect(content,sentNote.id);">View</button>
+            <td><button type="button" class="btn btn-danger btn-sm" (click)="onDelete(sentNote.id)">Delete </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <ng-template #content let-modal>
+        <div class="modal-header">
+          <h4 class="modal-title" id="modal-basic-title">Note Response</h4>
+          <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <table class="table table-bordered table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th>Response</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let noteRes of noteResponses">
+                <td>{{noteRes.responseDateTime | date : 'short' }}</td>
+                <td>{{noteRes.responseMessage }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="modal.close('close')">Close</button>
+        </div>
+      </ng-template>
+      <ngb-pagination id="pgination" [collectionSize]="collectionSize" [(page)]="page" (pageChange)="nextPage(page)">
+      </ngb-pagination>
+    </div>  
+</div>

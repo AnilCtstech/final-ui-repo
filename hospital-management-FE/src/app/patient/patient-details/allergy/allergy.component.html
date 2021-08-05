@@ -1,0 +1,162 @@
+<div class="container">
+
+   <div class="row g-5">
+      <div class="col-md-6 ">
+         <h4 class="mb-3">Allergy Details</h4>
+         <form #f="ngForm">
+            <div class="row g-3">
+
+
+
+               <div class="col-sm-4">
+                  <label for="allergyType" class="form-label">Allergy Type</label>
+                  <select
+                  (input)="getAllergyDetailsByAllergyType($event)"
+                  
+                  class="form-select" id="allergyType" [(ngModel)]="allergy.allergyTypeInput"
+                  
+                     name="allergyTypeInput" required>
+
+                     <!-- <option>{{allergyTypeInput}}</option> -->
+                    
+               <!-- <option>---------</option> -->
+               <!-- <option>Animal</option>
+                <option>Bacteria Airway</option> 
+                <option>Bacteria Skin</option> 
+                <option>Contact</option>
+                <option>Drug</option>
+                <option>Food </option> 
+                <option>Fungi</option>
+                <option>Insect</option>
+                <option>Mite</option>
+                <option>Parasite</option>
+                <option>Plant</option>
+                <option>Vaccine</option>    
+                <option>Venom or Salivary</option>
+                <option>Others</option>  -->
+                <option *ngFor="let type of allergyTypes">{{type}}</option>
+                  </select>
+               </div>
+
+      
+
+
+               <!-- <div class="col-sm-4">
+                  <label for="allergyId" class="form-label">Allergy Id</label>
+                  <input list="allergyIds" type="text" 
+                  (input)="getAllergyDetailsByAllergyId($event)" 
+                  class="form-control" id="allergyId" #allergyid="ngModel"
+                     name="allergyIdInput" [(ngModel)]="allergyIdInput" placeholder="" value="" required>
+                  
+                     <datalist id="allergyIds">
+                        <option>{{allergyIdInput}}</option>
+                        <option  *ngFor="let id of allergyIds">{{id}}</option>
+      
+                     </datalist>
+
+
+                     <div class="invalid-feedback">
+                  </div>
+               </div> -->
+ 
+
+               <div class="col-sm-4">
+                  <label for="allergyName" class="form-label">Allergy Name</label>
+                  <select class="form-select" 
+                  (input)="getAllergyIdsByNames($event)" 
+                  id="allergyName" [(ngModel)]="allergy.allergyNameInput"
+                     name="allergyNameInput" required>
+
+                     <option>{{allergyNameInput}} </option>
+
+                     <!-- <option>D1</option>
+                          <option>D2</option> 
+                          <option>D3</option>  -->
+
+                     <!-- <div  *ngfor="let allergy of allergyNames; let i=index">
+                        <option  value="0">--Select User--</option>
+                        <option *ngif= "i<10" [value]="allergy">{{allergy}} </option>
+                        
+                     </div> -->
+                     
+                     <option *ngFor="let name of allergyNames">{{name}}</option>
+                     
+                  </select>
+                  <div class="invalid-feedback">
+                     Please select a valid Title
+                  </div>
+               </div>
+
+              
+               <div class="col-sm-4">
+                  <label for="allergyId" class="form-label">Allergy Id</label>
+                  <select class="form-select" id="allergyId"
+                  
+                  (input)="getAllergyDetailsByAllergyId($event)" 
+                  [(ngModel)]="allergyIdInput" name="allergyIdInput" required>
+    
+                    <option>{{allergyIdInput}}</option>
+                    <option  *ngFor="let id of allergyIds">{{id}}</option>
+                    
+                   
+                  </select> 
+                  <div class="invalid-feedback">
+                     Please select a valid Title
+                  </div>
+              </div>
+
+
+
+              <div class="col-sm-12">
+               <label for="allergyClinicalInfo" class="form-label">Allergy Clinical Information</label>
+               <input type="text" class="form-control" id="allergyClinicalInfoInput" #allergyclinicalinfo="ngModel"
+                  name="allergyClinicalInfoInput" [(ngModel)]="allergyClinicalInfoInput" placeholder="" value=""
+                  required>
+               <!-- {{allergyClinicalInfoInput}} -->
+               <div class="invalid-feedback">
+
+               </div>
+            </div>
+
+
+               <div class="col-sm-12">
+                  <label for="Allergy Description" class="form-label">Allergy Description</label>
+                  <textarea rows="3" cols="100" id="allergyDescriptionInput" class="form-control"
+                     name="allergyDescriptionInput" [(ngModel)]="allergy.allergyDescriptionInput"
+                     #allergydescription="ngModel">Enter Allergy Description</textarea>
+               </div>
+
+
+               <div class="my-3" style="margin-left: 10px;">
+                  <div class="form-group">
+                     <label for="isAllergyFatalInput" class="form-label">Is Allergy Fatal?</label>
+                  </div>
+                  <div style="margin-left: 20px;">
+                     <div>
+                        <input id="Yes" name="isAllergyFatalInput" value="Yes" type="radio" [value]="1"
+                           [(ngModel)]="allergy.isAllergyFatalInput" #Yes="ngModel" class="form-check-input" required>
+                        <label class="form-check-label" for="Yes">Yes</label>
+                     </div>
+                     <div>
+                        <input id="No" name="isAllergyFatalInput" value="No" type="radio" [value]="0"
+                           [(ngModel)]="allergy.isAllergyFatalInput" #No="ngModel" class="form-check-input" required>
+                        <label class="form-check-label" for="No">No</label>
+                     </div>
+                  </div>
+               </div>
+
+            </div>
+
+            <button id="submitbutton" class="w-10 btn btn-primary btn-lg" type="button" (click)="onSave($event)"
+               href="#myModal" data-toggle="modal" [disabled]="!f.form.valid">Add Allergy</button>
+
+         </form>
+
+         <br>
+
+
+
+
+      </div>
+   </div>
+</div><br>

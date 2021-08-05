@@ -1,0 +1,33 @@
+
+    <div class="container-fluid" style="background-color:rgb(235, 233, 224);">
+        <main>
+            <div class="row g-6">
+                 <div *ngIf="loggedin()" class="order-md-first">
+                    <app-sidebar></app-sidebar>
+                </div>
+                <div class="col-md-3 col-lg-3 order-md-last">
+                    <h3 class="display-4">Specially For Our User !</h3>
+                    <div class="row">
+                        <div class="col-6 col-sm-6 col-md-6" *ngIf="!loggedin()">
+                            <button class="btn btn-warning btn-lg" routerLink='/login' type="button">Registred User</button>&nbsp;
+                        </div>
+                        
+                        <div class="col-6 col-sm-6 col-md-6 text-right">
+                            <button class="btn btn-primary btn-lg"  routerLink='/patient' type="button">New Patient</button>
+                        </div>
+                        <div class="col-6 col-sm-6 col-md-6">
+                            <button class="btn btn-primary btn-lg" *ngIf="loggedin()" routerLink='/employee' type="button">New Employee</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <h1 class="display-4">Welcome To CT General Hospital!</h1>
+                    <h6>
+                        <img src="assets/images/patient.jpg"  class="img-fluid" height="400px">
+                    </h6>
+                
+                </div>
+            </div>
+        </main>
+    </div>
+    <app-footer></app-footer>

@@ -1,0 +1,54 @@
+.adjust_appointments_view {
+    width: 100%;
+    margin-left: 4%;
+    margin-top: 0%;
+}
+
+
+.card-header{
+    width: 100%;
+}
+
+/* body {
+    overflow: scroll; 
+  } */
+
+.card_css {
+    background-color: green;
+}
+
+/* .active_appointment {
+    background: #007bff;
+} */
+
+/* .active_appointment {
+    background: grey;
+} */
+
+.active_appointment {
+    background: rgb(105, 165, 218);
+}
+
+/* div.card :hover {
+    background: rgb(235, 233, 224);
+    color: white;
+} */
+
+
+
+/* div :hover{
+    rgb(105, 165, 218);
+    background: #007bff;
+} */
+
+/* div.card :hover {
+    background: grey;
+    color: white;
+} */
+
+divtest {
+    width:100%;
+    padding: 10px;;
+    top:0px;
+    left:0px;
+}

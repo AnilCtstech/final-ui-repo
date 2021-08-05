@@ -1,0 +1,217 @@
+<div class="container-fluid">
+  <div class="row">
+  <div class="order-md-first">
+     <app-sidebar></app-sidebar>
+ </div>
+ <div class="col center order-md-last">
+  <form class="needs-validation" novalidate>
+
+    <div class="py-5 text-center">
+      <h2>Schedule an Appointment</h2>
+    </div>
+    <div class="row g-5" style="margin-left: 18%;">
+      <div class="col-md-7 col-lg-8">
+        <form ngForm #f>
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="physicianName" class="form-label">Physician Name</label>
+              <select class="form-select" id="physicianId" #phyName="ngModel" [(ngModel)]="physicianName" name="physicianName" (change)="changeEmployeeInfo($event)" required>
+                <option value="0" selected>--Select User--</option>
+                        <option *ngFor="let profile of profiles" [value]="profile.firstName">{{profile.firstName}}&nbsp;{{profile.lastName}}</option>
+              </select>
+              <div *ngIf="phyName.invalid && (phyName.dirty || phyName.touched)">
+                <div *ngIf="phyName.errors?.required" class="validation_error_red">
+                  Physician Name is required.
+                </div>
+               <!-- <div *ngIf="phyName.errors?.minlength" class="validation_error_red">
+                  contact length should be 10
+                </div>-->
+              </div>
+            </div>
+
+            <br>
+            <div class="col-12">
+              <label for="empId" class="form-label">Employee ID</label>
+              <input type="text" class="form-control" id="empId" [(ngModel)]="employeeID" value="EMP101" name="employeeID" readonly>
+            </div>
+
+            <div class="col-12" style="margin-top: 5px;">
+              <label for="descriptiveInfo" class="form-label">Descriptive Information</label>
+              <input type="text" [(ngModel)]="descriptiveInfo" #descInfo="ngModel" name="descriptiveInfo"
+                id="descriptiveInfo" class="form-control" placeholder="" minlength="10" required number>
+
+              <div *ngIf="descInfo.invalid && (descInfo.dirty || descInfo.touched)">
+                <div *ngIf="descInfo.errors?.required" class="validation_error_red">
+                  Descriptive Information is required.
+                </div>
+                <div *ngIf="descInfo.errors?.minlength" class="validation_error_red">
+                  contact length should be 10
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-12" style="margin-top: 10px;">
+              <label for="doa" class="form-label">Date of an Appointment </label>
+              <div class="input-group date" data-provide="datepicker">
+                <input type="date"  [(ngModel)]="doa"
+                  #ddate="ngModel" name="doa" id="doa" class="form-control" required date>
+
+                <div *ngIf="ddate.invalid && (ddate.dirty || ddate.touched)">
+                  <div *ngIf="ddate.errors?.required" style="color: red;">
+                    Enter Valid Date
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+            <div class="col-12">
+              <label for="slotsAvail" class="form-label">Available Slots</label>
+              <select class="form-select" #slot="ngModel" id="slotsId" [(ngModel)]="slotsAvail" name="slotsAvail" required>
+                <option selected>09:00 AM - 09:15 AM</option>
+                <option>09:15 AM - 09:30 AM</option>
+                <option>09:30 AM - 09:45 AM</option>
+                <option>09:45 AM - 10:00 AM</option>
+              </select>
+              <div *ngIf="slot.invalid && (slot.dirty || slot.touched)">
+                <div *ngIf="slot.errors?.required" style="color: red;">
+                  Enter Valid Slot
+                </div>
+                <div *ngIf="slot.errors?.minlength" class="validation_error_red">
+                  enter valid date
+                </div>
+              </div>
+            </div>
+
+
+            <div class="col-12">
+              <label for="patientId" class="form-label">Select Patient</label>
+              <select class="form-select" #patient="ngModel" id="patientId" [(ngModel)]="patientEmail" name="patientEmail" (change)="changePatientInfo($event)" required>
+                <option value="0" selected>--Select User--</option>
+                <option *ngFor="let profile1 of profiles1" [value]="profile1.email">{{profile1.email}}</option>
+              </select>
+              <div *ngIf="patient.invalid && (patient.dirty || patient.touched)">
+                <div *ngIf="patient.errors?.required" style="color: red;">
+                  Enter Valid Patients
+                </div>
+              </div>
+            </div>
+
+            <div class="col-12" style="margin-top: 10px;">
+              <label for="meetingTitle" class="form-label">Meeting Title</label>
+              <input type="text" class="form-control" id="meetingTitle" [(ngModel)]="meetTitle" value="Physiotherapy" name="meetTitle">
+            </div>
+
+            <br><br><br>
+            <h4 style="margin-left: 3%;"> Patient Information </h4>
+            <div class="row g-3" style="margin-left: 1%;">
+              <div class="col-sm-2">
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" value="" [(ngModel)]="title" name="title" readonly>
+              </div>
+              <div class="col-sm-5">
+                <label for="firstName" class="form-label">First name</label>
+                <input type="text" class="form-control" id="firstName" value="Jerry" [(ngModel)]="fName" name="fName" readonly>
+              </div>
+              <div class="col-sm-5">
+                <label for="lastName" class="form-label">Last name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="" value="" [(ngModel)]="lName" name="lName" readonly>
+              </div>
+              <div class="col-12">
+                <label for="email" class="form-label">Email </label>
+                <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label for="dob" class="form-label">Date of Birth </label>
+                <input type="text" id="dob" class="form-control" [(ngModel)]="DOB" name="DOB" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label for="age" class="form-label">Age</label>
+                <input type="text" class="form-control" id="age" value="" [(ngModel)]="age" name="age" readonly>
+              </div>
+              <div class="col-sm-4">
+                <label for="gender" class="form-label">Gender </label>
+                <input type="text" id="gender" class="form-control" [(ngModel)]="gender" name="gender" readonly>
+              </div>
+              <div class="col-12">
+                <label for="contact" class="form-label">Contact</label>
+                <input type="contact" class="form-control" id="contact" [(ngModel)]="contact" name="contact" readonly>
+              </div>
+              <div class="col-12">
+                <label for="homeAddress">Home Address</label>
+                <textarea id="homeAddress" name="homeAddress" cols="30" rows="5" class="form-control" [(ngModel)]="hAddress" name="hAddress" readonly>
+                    </textarea>
+              </div>
+              <div class="col-sm-6">
+                <label for="race" class="form-label">Race</label>
+                <input type="text" class="form-control" id="race" value="" [(ngModel)]="race" name="race" readonly>
+              </div>
+              <div class="col-sm-6">
+                <label for="ethnicity" class="form-label">Ethnicity</label>
+                <input type="text" class="form-control" id="ethnicity" placeholder="" value="" [(ngModel)]="ethnicity" name="ethnicity" readonly>
+              </div>
+
+            </div>
+          </div>
+          <br><br>
+
+            <button id="submitbutton" class="w-10 btn btn-primary btn-lg" type="button" (click)="onSave($event)"
+              href="#myModal" data-toggle="modal">Add Appointment</button>
+            
+        </form>
+      </div>
+    </div>
+  </form>
+</div>
+</div>
+</div>
+
+<!--bootstrap appointment success -->
+<div id="myModal" class="modal fade">
+  <div class="modal-dialog modal-confirm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="icon-box">
+          <i class="material-icons">&#xE876;</i>
+        </div>
+        <h4 class="modal-title">Appointment success!</h4>
+      </div>
+      <div class="modal-body">
+        <p class="text-center">Scheduled an Appointment Successfully!!!</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-success btn-block" data-dismiss="modal" (click)="reloadPage()">OK</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--sign up sucess modal end-->
+
+
+<div style="margin-top: 40px;">
+  <app-footer></app-footer>
+</div>
+
+<script>
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+  let validator = (function () {
+    'use strict';
+    window.addEventListener('load', function () {
+      // Fetch all the forms we want to apply custom Bootstrap validation styles to
+      var forms = document.getElementsByClassName('needs-validation');
+      // Loop over them and prevent submission
+      var validation = Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) {
+          if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated');
+        }, false);
+      });
+    }, false);
+  })();
+</script>

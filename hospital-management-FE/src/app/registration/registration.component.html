@@ -1,0 +1,245 @@
+<div class="row">
+   <div class="order-md-first">
+      <app-sidebar></app-sidebar>
+      <div class="p-4"></div>
+      <div class="p-4"></div>
+      <div class="p-4"></div>
+      <div class="p-4"></div>
+   </div>
+
+   <div class="col center order-md-last">
+
+      <form class="needs-validation" novalidate>
+
+         <div class="py-5 text-center">
+            <h2>Employee Registration</h2>
+         </div>
+         <div class="row g-5" style="margin-left: 18%;">
+            <div class="col-md-7 col-lg-8">
+               <form>
+                  <div class="row g-3">
+                     <div class="col-sm-2">
+                        <label for="title" class="form-label">Title</label>
+                        <select class="form-select" id="titleid" required>
+                           <option selected>Mr</option>
+                           <option>Mrs</option>
+                           <option>Ms</option>
+                        </select>
+                        <div class="invalid-feedback">
+                           Please select a valid Title
+                        </div>
+                     </div>
+
+
+                     <div class="col-sm-5">
+                        <label for="firstName" class="form-label ">First name</label>
+                        <input type="text" class="form-control " #name="ngModel" name="firstNameInput"
+                           [(ngModel)]="firstNameInput" placeholder="" value="" minlength="2" id="firstName" required>
+
+                        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="validation_error_red">
+                           <div *ngIf="name.errors?.required" class="validation_error_red">
+                              First Name is required.
+                           </div>
+                           <div *ngIf="name.errors?.minlength" class="validation_error_red">
+                              Atleast 2 characters required
+                           </div>
+                           <div *ngIf="name.errors?.forbiddenName">
+                              Name cannot be Bob.
+                           </div>
+                        </div>
+                     </div>
+                     <br>
+                     <div class="col-sm-5">
+                        <label for="lastName" class="form-label">Last name</label>
+                        <input type="text" class="form-control" id="lastName" #lastname="ngModel" name="lastNameInput"
+                           [(ngModel)]="lastNameInput" placeholder="" value="" required minlength="2">
+
+                        <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+                           <div *ngIf="lastname.errors?.required" class="validation_error_red">
+                              Last Name is required.
+                           </div>
+                           <div *ngIf="lastname.errors?.minlength" class="validation_error_red">
+                              Atleast 2 characters
+                           </div>
+                           <div *ngIf="lastname.errors?.forbiddenName">
+                              Name cannot be Bob.
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-12" style="margin-top: 5px;">
+                        <label for="email" class="form-label">Email Id</label>
+                        <input type="email" [(ngModel)]="email" #demail="ngModel"
+                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="email" id="email"
+                           class="form-control" placeholder="" required email>
+
+                        <div *ngIf="demail.invalid && (demail.dirty || demail.touched)">
+                           <div *ngIf="demail.errors?.required" class="validation_error_red">
+                              email is required.
+                           </div>
+                           <div *ngIf="demail.errors?.minlength" class="validation_error_red">
+                              email length small
+                           </div>
+                           <div *ngIf="demail.errors?.pattern" class="validation_error_red">
+                              not a valid email
+                           </div>
+                           <div *ngIf="demail.errors?.forbiddenName">
+                              Name cannot be Bob.
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-12" style="margin-top: 10px;">
+                        <label for="dob" class="form-label">Date of Birth </label>
+                        <div class="input-group date" data-provide="datepicker">
+                           <input type="date" [max]="maxDate" (change)="dateChange($event.target)" [(ngModel)]="dob"
+                              #ddate="ngModel" name="dob" id="dob" class="form-control" required date>
+
+                           <div *ngIf="ddate.invalid && (ddate.dirty || ddate.touched)">
+                              <div *ngIf="ddate.errors?.required" style="color: red;">
+                                 enter valid date
+                              </div>
+                              <div *ngIf="ddate.errors?.minlength" class="validation_error_red">
+                                 enter valid date
+                              </div>
+                              <div *ngIf="ddate.errors?.forbiddenName">
+                                 Name cannot be Bob.
+                              </div>
+                           </div>
+                        </div>
+                     </div>
+                     <div class="col-12" style="margin-top: 5px;">
+                        <label for="contact" class="form-label">Contact</label>
+                        <input type="tel" [(ngModel)]="contact" #dcontact="ngModel" name="contact" id="contact"
+                           class="form-control" placeholder="" minlength="10" required number>
+                        <div *ngIf="dcontact.invalid && (dcontact.dirty || dcontact.touched)">
+                           <div *ngIf="dcontact.errors?.required" class="validation_error_red">
+                              contact is required.
+                           </div>
+                           <div *ngIf="dcontact.errors?.minlength" class="validation_error_red">
+                              contact length should be 10
+                           </div>
+                           <div *ngIf="dcontact.errors?.forbiddenName">
+                              Name cannot be Bob.
+                           </div>
+                        </div>
+                     </div>
+                  </div>
+                  <div class="col-12" style="margin-top: 5px;">
+                     <div class="form-group">
+                        <label for="role" class="form-label">Role</label>
+                        <div>
+                           <input id="admin" name="role" value="ADMIN" type="radio" [(ngModel)]="role" #admin="ngModel"
+                              class="form-check-input" disabled>
+                           <label class="form-check-label" for="admin">Admin</label>
+                        </div>
+                        <div>
+                           <input id="physician" name="role" value="DOCTOR" type="radio" [(ngModel)]="role"
+                              #physician="ngModel" class="form-check-input" required>
+                           <label class="form-check-label" for="physician">Physician</label>
+                        </div>
+                        <div>
+                           <input id="nurse" name="role" value="NURSE" type="radio" [(ngModel)]="role" #nurse="ngModel"
+                              class="form-check-input" required>
+                           <label class="form-check-label" for="nurse">Nurse</label>
+                        </div>
+                     </div>
+                  </div>
+
+                  <button id="submitbutton" class="w-10 btn btn-primary btn-lg" type="button" (click)="onSave($event)"
+                     >Submit</button>&nbsp;&nbsp;&nbsp;
+
+                     <div *ngIf="load"  class="clearfix">
+                        <div class="row">
+                          <h5 class="text-success">Saving data!</h5>
+                        <div class="spinner-border float-right text-success" role="status">
+                          <span class="sr-only">Loading...</span>
+                        </div>
+                      </div>
+                      </div>
+                  <!-- <button id="submitbutton" class="w-10 btn btn-primary btn-lg" type="button" routerLink="/inbox"
+                     data-toggle="modal">Inbox</button> -->
+               </form>
+            </div>
+         </div>
+      </form>
+   </div>
+
+  
+
+   <!--sign up sucess modal end-->
+
+
+
+
+   <!-- <script>
+      // Example starter JavaScript for disabling form submissions if there are invalid fields
+      let validator = (function () {
+         'use strict';
+         window.addEventListener('load', function () {
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            var forms = document.getElementsByClassName('needs-validation');
+            // Loop over them and prevent submission
+            var validation = Array.prototype.filter.call(forms, function (form) {
+               form.addEventListener('submit', function (event) {
+                  if (form.checkValidity() === false) {
+                     event.preventDefault();
+                     event.stopPropagation();
+                  }
+                  form.classList.add('was-validated');
+               }, false);
+            });
+         }, false);
+      })();
+   </script> -->
+</div>
+
+
+
+
+
+<!--bootstrap sign up success -->
+<div id="myModal" class="modal fade">
+   <div class="modal-dialog modal-confirm">
+      <div class="modal-content">
+         <div class="modal-header">
+            <div class="icon-box">
+               <i class="material-icons">&#xE876;</i>
+            </div>
+            <h4 class="modal-title">Signup success!</h4>
+         </div>
+         <div class="modal-body">
+            <p class="text-center">Patient registration is successful</p>
+         </div>
+         <div class="modal-footer">
+            <button class="btn btn-success btn-block" data-dismiss="modal" (click)="reloadPage()">OK</button>
+         </div>
+      </div>
+   </div>
+</div>
+
+<!--sign up sucess modal end-->
+
+
+<div style="margin-top: 40px;">
+   <app-footer></app-footer>
+</div>
+
+<script>
+   // Example starter JavaScript for disabling form submissions if there are invalid fields
+   let validator = (function () {
+      'use strict';
+      window.addEventListener('load', function () {
+         // Fetch all the forms we want to apply custom Bootstrap validation styles to
+         var forms = document.getElementsByClassName('needs-validation');
+         // Loop over them and prevent submission
+         var validation = Array.prototype.filter.call(forms, function (form) {
+            form.addEventListener('submit', function (event) {
+               if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+               }
+               form.classList.add('was-validated');
+            }, false);
+         });
+      }, false);
+   })();
+</script>

@@ -1,0 +1,15 @@
+body {
+    padding-bottom: 20px;
+  }
+.navbar {
+    margin-bottom: 20px;
+    background-color: mediumslateblue;
+  }
+img{
+  margin-right: 20px;
+}
+
+
+ul.nav{
+  margin-left: auto;
+}

@@ -1,0 +1,114 @@
+<!-- sidebar -->
+<!-- Sidebar Header -->
+<div id="sidebar" class="collapse show navbar-collapse shadow-lg p-7 mb-5 bg-white rounded">
+    <!-- Sidebar Links -->
+    <ul class="list-unstyled components">
+        <div class="collapse show">
+
+
+            <div *ngIf="role =='PHYSICIAN'">
+                <li class="nav-item">
+                    <a class="nav-link bi bi-inboxes-fill " data-toggle="collapse" href="#inboxSubmenu">
+                        <i class="bi bi-inboxes-fill"></i>
+                        &nbsp;&nbsp; <i class="fas fa-inbox "></i> <b>&nbsp;Inbox</b></a>
+                    <ul class="list-unstyled components " id="inboxSubmenu">
+                        <li><a routerLinkActive="active"
+                                routerLink="/inbox/appointment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                    class="far fa-calendar-check"></i>&nbsp;<b>Appointments</b></a>
+                        </li>
+                        <li>
+                            <a href="#homeSubmenu" data-toggle="collapse">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                    class="fas fa-notes-medical"></i>&nbsp;<b>Notes</b></a>
+                            <ul class=" list-unstyled components " id="homeSubmenu">
+                                <li class="nav-item"><a class="nav-link" data-toggle="collapse" routerLink="/note/send"
+                                        routerLinkActive="active">&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;<i
+                                            class="far fa-paper-plane"></i>&nbsp;<b>Send</b></a></li>
+                                <li><a class="nav-link" data-toggle="collapse" routerLink="/note/recieve"
+                                        routerLinkActive="active">&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;<i
+                                            class="fab fa-get-pocket"></i>&nbsp;<b>Recieved</b></a></li>
+                                <li><a class="nav-link" data-toggle="collapse" routerLink="/note/sent"
+                                        routerLinkActive="active">&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;<i
+                                            class="fas fa-history"></i>&nbsp;<b>Sent</b></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item  show">
+                    <a class="nav-link bi bi-inboxes-fill" data-toggle="collapse" href="#visits">
+                        &nbsp;&nbsp;&nbsp;<i class="fab fa-get-pocket"></i><b>Visit Details</b>
+                        </a>
+                    <ul class="list-unstyled components" id="visits">
+                        <li><a routerLinkActive="collapse active" class="nav-link"
+                                routerLink="/patient-visit/add">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                class="fab fa-get-pocket"></i>&nbsp;<b>Patient Visit</b></a>
+                        </li>
+                        <li><a routerLinkActive="collapse active"
+                            routerLink="/patient-visit/view">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fab fa-get-pocket"></i>&nbsp;<b>All Visit</b></a>
+                         </li>
+                    </ul>
+                </li>
+            </div>
+
+
+            <div *ngIf="role =='NURSE'">
+                <a class="nav-link bi bi-inboxes-fill" data-toggle="collapse" href="#inboxSubmenu">
+                    <i class="bi bi-inboxes-fill"></i>
+                    <i class="fas fa-inbox"></i> <b>&nbsp;Inbox</b></a>
+                <ul class="list-unstyled components " id="inboxSubmenu">
+                    <li><a routerLinkActive="active"
+                            routerLink="/inbox/appointment">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                class="far fa-calendar-check"></i><b>&nbsp;Appointments</b></a>
+                    </li>
+                    <li>
+                        <a href="#homeSubmenu" data-toggle="collapse">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i
+                                class="fas fa-notes-medical"></i>&nbsp;<b>&nbsp;Notes</b></a>
+                        <ul class=" list-unstyled components " id="homeSubmenu">
+                            <li class="nav-item"><a class="nav-link" data-toggle="collapse" routerLink="/note/send"
+                                    routerLinkActive="active">&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;<i
+                                        class="far fa-paper-plane"></i>&nbsp;<b>Send</b></a></li>
+                            <li><a class="nav-link" data-toggle="collapse" routerLink="/note/recieve"
+                                    routerLinkActive="active">&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;<i
+                                        class="fab fa-get-pocket"></i>&nbsp;<b>Recieved</b></a></li>
+                            <li><a class="nav-link" data-toggle="collapse" routerLink="/note/sent"
+                                    routerLinkActive="active">&nbsp;&nbsp;&nbsp;&nbsp;&emsp;&nbsp;&nbsp;<i
+                                        class="fas fa-history"></i>&nbsp;<b>Sent</b></a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <li><a routerLinkActive="active" routerLink="/appointment/add"> <i
+                            class="far fa-calendar-alt"></i>&nbsp;<b>Schedular</b></a></li>
+               
+                            <!-- <li class="nav-item collapse show">
+                    <a class="nav-link bi bi-inboxes-fill" data-toggle="collapse" href="#medication">
+                        <i class="bi bi-inboxes-fill"></i>
+                        <b><i class="fas fa-handshake"></i>&nbsp;Visit Details</b></a>
+                    <ul class="list-unstyled components collapse" id="medication">
+                        <li><a routerLinkActive="active" routerLink="/patient-visit/medication">&nbsp;&nbsp;&nbsp;<b><i
+                                        class="fas fa-pills"></i>&nbsp;Medication</b></a>
+                        </li>
+                    </ul>
+                </li> -->
+            </div>
+
+
+            <div *ngIf="role =='ADMIN'">
+                <li><a routerLinkActive="active" routerLink="/patient/show"><i
+                            class="fas fa-hospital-user"></i>&nbsp;<b>Patient Management</b></a></li>
+                <li><a routerLinkActive="active" routerLink="/appointment/add"><i
+                            class="far fa-hospital"></i>&nbsp;<b>Hospital Staff Management</b></a></li>
+            </div>
+
+
+            <div *ngIf="role =='PATIENT'">
+                <li><a routerLinkActive="active" routerLink="/patient-details">&nbsp;&nbsp;&nbsp;<i
+                            class="fas fa-info"></i><b>&nbsp;Patient Details</b></a>
+                </li>
+                <li><a routerLinkActive="active" routerLink="/inbox/appointment">&nbsp;&nbsp;&nbsp;<i
+                            class="far fa-calendar-check"></i><b>&nbsp;Appointments</b></a>
+                </li>
+            </div>
+        </div>
+    </ul>
+</div>
+
+<!------------------------------>

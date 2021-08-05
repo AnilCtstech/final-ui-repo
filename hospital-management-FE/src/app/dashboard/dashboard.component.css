@@ -1,0 +1,20 @@
+.subsection_inbox {
+    display: inline-block;
+    padding-bottom: 5px;
+    width: 22%;
+    margin-top: 0px;
+    height: 30px;
+}
+
+table {
+    width: 30%;
+}
+
+#wrapper {
+    display: flex;
+    border: 1px solid black;
+}
+
+#pdetails:hover {
+    background-color: rgb(129, 129, 243)
+}

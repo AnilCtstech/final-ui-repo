@@ -1,0 +1,436 @@
+   <!-- <app-header></app-header> -->
+   <div class="container-fluid">
+      <div class="row">
+      <div class="order-md-first">
+         <app-sidebar></app-sidebar>
+     </div>
+     <div class="col center order-md-last">
+      <form class="needs-validation" novalidate>
+         <div class="py-5 text-center">
+            <h1>Patient Details Screen</h1><br>
+            <p class="lead"></p> 
+         </div> 
+            <form #f="ngForm">    
+               <div class="row g-5">
+                  <div class="col-md-6">
+                     <h2>Demographics</h2>
+                        <div class="row g-3">
+                                                
+                           <div class="col-sm-2">
+                              <label for="title" class="form-label">Title <span>*</span></label>
+                                 <select class="form-select" id="titleid" [(ngModel)]="titleInput"  name="titleInput" required>
+                                    <option selected>Mr</option>
+                                    <option>Mrs</option>
+                                    <option>Ms</option>
+                                 </select>
+                                 <div class="invalid-feedback">
+                                    Please select a valid Title
+                                 </div>
+                           </div>
+
+                           <div class="col-sm-5">
+                              <label for="firstName" class="form-label">First name <span>*</span></label>
+                              <input type="text" class="form-control " #name="ngModel" name="firstName" 
+                                 [(ngModel)]="firstName" placeholder="" value="" minlength="2" id="firstName" required>
+         
+                              <div *ngIf="name.invalid && (name.dirty || name.touched)" class="validation_error_red">
+                                 first name is required.
+                                 <div *ngIf="name.errors?.minlength" class="validation_error_red">
+                                    Atleast 2 characters
+                                 </div>
+                                 <div *ngIf="name.errors?.forbiddenName">
+                                    Name cannot be Bob.
+                                 </div>
+                              </div>
+                           </div>
+                  
+
+                           <div class="col-sm-5">
+                              <label for="lastName" class="form-label">Last name <span>*</span></label>
+                              <input type="text" class="form-control " id="lastName" #lastname="ngModel" name="lastName" 
+                                 [(ngModel)]="lastName" placeholder="" value="" required minlength="2">
+         
+                              <div *ngIf="lastname.invalid && (lastname.dirty || lastname.touched)">
+                                 <div *ngIf="lastname.errors?.required" class="validation_error_red">
+                                    last name is required.
+                                 </div>
+                                 <div *ngIf="lastname.errors?.minlength" class="validation_error_red">
+                                    Atleast 2 characters
+                                 </div>
+                                 <div *ngIf="lastname.errors?.forbiddenName">
+                                    Name cannot be Bob.
+                                 </div>
+                              </div>
+                           </div>
+
+                           <!-- (change)="changePatientInfo($event)" -->
+                           <div class="col-6">
+                              <label for="emails" class="form-label">Email Id <span>*</span></label>
+                              <input type="emails" [(ngModel)]="emails" #demail="ngModel" [disabled]="disableElement"
+                                 pattern="[(A-Z)(a-z)0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="emails" id="emails" 
+                                
+                                 class="form-control"
+                                 placeholder="" required email>
+         
+                              <div *ngIf="demail.invalid && (demail.dirty || demail.touched)">
+                                 <div *ngIf="demail.errors?.required" class="validation_error_red">
+                                    email is required.
+                                 </div>
+                                 <div *ngIf="demail.errors?.minlength" class="validation_error_red">
+                                    email length small
+                                 </div>
+                                 <div *ngIf="demail.errors?.pattern" class="validation_error_red">
+                                    not a valid email
+                                 </div>
+                                 <div *ngIf="demail.errors?.forbiddenName">
+                                    Name cannot be Bob.
+                                 </div>
+                              </div>
+                           </div>
+
+
+                           <div class="col-6">
+                              <label for="dateOfBirth" class="form-label">Date of Birth <span>*</span></label> 
+                                 <div class="input-group date" data-provide="datepicker">
+                                    <input type="date" [max]="maxDate"
+                               
+                                    (change)="dateChange($event.target)" [(ngModel)]="dateOfBirth" 
+                                       #ddate="ngModel" name="dateOfBirth" id="dateOfBirth" 
+                                       class="form-control" required date>
+                                       
+                                       <div *ngIf="ddate.invalid && (ddate.dirty || ddate.touched)">
+                                             <div *ngIf="ddate.errors?.required" style="color: red;">
+                                                enter valid date
+                                             </div>
+                                                <div *ngIf="ddate.errors?.minlength" class="validation_error_red">
+                                                   enter valid date
+                                                </div>
+                                                <div *ngIf="ddate.errors?.forbiddenName">
+                                                   Name cannot be Bob.
+                                                </div>
+                                       </div>
+                              </div>
+                           </div>
+
+                           <div class="col-sm-6" style="margin-top: 5px;">
+                              <div class="form-group">
+                                 <label for="gender" class="form-label">Gender <span>*</span></label>
+                                 <div style="margin-left: 20px;">
+                                       <div>
+                                          <input id="male" name="gender" value="MALE" type="radio" [(ngModel)]="gender" #male="ngModel"
+                                          class="form-check-input" required>
+                                          <label class="form-check-label" for="male">Male</label>
+                                       </div>
+                                       <div>
+                                             <input id="female" name="gender" value="FEMALE" type="radio" [(ngModel)]="gender" #female="ngModel"
+                                             class="form-check-input" required>
+                                             <label class="form-check-label" for="female">Female</label>
+                                       </div>
+                                       <div>
+                                             <input id="others" name="gender" value="OTHERS" type="radio" [(ngModel)]="gender" #others="ngModel"
+                                             class="form-check-input" required>
+                                             <label class="form-check-label" for="others">Others</label>
+                                       </div>
+                                 </div>
+                              </div>
+                           </div>
+
+                           <div class="col-6" style="margin-top: 5px;">
+                                 <label for="contactNo" class="form-label">Contact <span>*</span></label>
+                                 <input type="tel" [(ngModel)]="contactNo" #dcontact="ngModel" name="contactNo" id="contactNo" 
+                                    class="form-control" placeholder="" minlength="10" required number>
+
+                                 <div *ngIf="dcontact.invalid && (dcontact.dirty || dcontact.touched)">
+                                    <div *ngIf="dcontact.errors?.required" class="validation_error_red">
+                                       contact is required.
+                                    </div>
+                                    <div *ngIf="dcontact.errors?.minlength" class="validation_error_red">
+                                       contact length should be 10
+                                    </div>
+                                    <div *ngIf="dcontact.errors?.forbiddenName">
+                                       Name cannot be Bob.
+                                    </div>
+                                 </div>
+                           </div>
+
+
+                           <div class="col-sm-6">
+                              <label for="age" class="form-label">Age</label>
+                              <input type="text" class="form-control " id="age" #dage="ngModel" name="age" 
+                                 [(ngModel)]="age" placeholder="" value="" required minlength="2">
+         
+                              <div *ngIf="dage.invalid && (dage.dirty || dage.touched)">
+                                 <div *ngIf="dage.errors?.required" class="validation_error_red">
+                                    age is required.
+                                 </div>
+                                 <div *ngIf="dage.errors?.minlength" class="validation_error_red">
+                                    Atleast 2 characters
+                                 </div>
+                                 <div *ngIf="dage.errors?.forbiddenName">
+                                    Name cannot be Bob.
+                                 </div>
+                              </div>
+                           </div>
+
+
+
+
+                  
+                           <div class="col-sm-6">
+                              <label for="race" class="form-label">Race</label>
+                              <input type="text" class="form-control " id="race" #drace="ngModel" name="race"
+                                 [(ngModel)]="race" placeholder="" value="" required minlength="2">
+         
+                              <div *ngIf="drace.invalid && (drace.dirty || drace.touched)">
+                                 <div *ngIf="drace.errors?.required" class="validation_error_red">
+                                    race is required.
+                                 </div>
+                                 <div *ngIf="drace.errors?.minlength" class="validation_error_red">
+                                    Atleast 2 characters
+                                 </div>
+                                 <div *ngIf="drace.errors?.forbiddenName">
+                                    Name cannot be Bob.
+                                 </div>
+                              </div>
+                           </div>
+                  
+
+                           <div class="col-sm-6">
+                              <label for="ethniCity" class="form-label">Ethnicity</label>
+                              <input type="text" class="form-control " id="ethniCity" #ethnicity="ngModel" name="ethniCity"
+                                 [(ngModel)]="ethniCity" placeholder="" value="" required minlength="2">
+         
+                              <div *ngIf="ethnicity.invalid && (ethnicity.dirty || ethnicity.touched)">
+                                 <div *ngIf="ethnicity.errors?.required" class="validation_error_red">
+                                    ethnicity is required.
+                                 </div>
+                                 <div *ngIf="ethnicity.errors?.minlength" class="validation_error_red">
+                                    Atleast 2 characters
+                                 </div>
+                                 <div *ngIf="ethnicity.errors?.forbiddenName">
+                                    Name cannot be Bob.
+                                 </div>
+                              </div>
+                           </div>
+               
+
+                           <div class="col-sm-6">
+                              <label for="languagesKnown" class="form-label">Languages Known</label>
+                              <input type="text" class="form-control " id="languagesKnown" #languageknown="ngModel" name="languagesKnown"
+                                 [(ngModel)]="languagesKnown" placeholder="" value="" required minlength="2">
+         
+                              <div *ngIf="languageknown.invalid && (languageknown.dirty || languageknown.touched)">
+                                 <div *ngIf="languageknown.errors?.required" class="validation_error_red">
+                                    language is required.
+                                 </div>
+                                 <div *ngIf="languageknown.errors?.minlength" class="validation_error_red">
+                                    Atleast 2 characters
+                                 </div>
+                                 <div *ngIf="languageknown.errors?.forbiddenName">
+                                    Name cannot be Bob.
+                                 </div>
+                              </div>
+                           </div>
+                           
+                                                   
+
+                           <div class="col-sm-12">
+                              <label for="Home Address create_gap" class="form-label">Home Address</label>
+                              <textarea rows="4" cols="100" class="form-control" id="homeAddress"
+                                 name="homeAddress" [(ngModel)]="homeAddress" #homeaddress="ngModel">Enter Address here...</textarea>
+                           </div>
+
+                                    
+                        </div>
+                  </div>
+
+                     <div class="col-md-6">
+                           <h2>Emergency Contact</h2>
+                              <div class="row gy-4">
+                                    <div class="col-sm-2">
+                                          <label for="title" class="form-label">Title</label>
+                                          <select class="form-select" id="titleid" [(ngModel)]="emergTitle" name="emergTitle" required>
+                                             <option selected>Mr</option>
+                                             <option>Mrs</option>
+                                             <option>Ms</option>
+                                          </select>
+                                          <div class="invalid-feedback">
+                                             Please select a valid Title
+                                       </div>
+                                    </div>
+
+                                    <div class="col-sm-5">
+                                       <label for="emergFirstName" class="form-label">First name</label>
+                                       <input type="text" class="form-control " #emergname="ngModel" name="emergFirstName"
+                                          [(ngModel)]="emergFirstName" placeholder="" value="" minlength="2" id="emergFirstName" required>
+
+                                       <div *ngIf="emergname.invalid && (emergname.dirty || emergname.touched)" class="validation_error_red">
+                                          first name is required.
+                                          <div *ngIf="emergname.errors?.minlength" class="validation_error_red">
+                                             Atleast 2 characters
+                                          </div>
+                                          <div *ngIf="emergname.errors?.forbiddenName">
+                                             Name cannot be Bob.
+                                          </div>
+                                       </div>
+                                    </div>
+
+                                    <div class="col-sm-5">
+                                       <label for="emergLastName" class="form-label">Last name</label>
+                                       <input type="text" class="form-control " id="emergLastName" #emerglastname="ngModel" name="emergLastName"
+                                          [(ngModel)]="emergLastName" placeholder="" value="" required minlength="2">
+
+                                       <div *ngIf="emerglastname.invalid && (emerglastname.dirty || emerglastname.touched)">
+                                          <div *ngIf="emerglastname.errors?.required" class="validation_error_red">
+                                             last name is required.
+                                          </div>
+                                          <div *ngIf="emerglastname.errors?.minlength" class="validation_error_red">
+                                             Atleast 2 characters
+                                          </div>
+                                          <div *ngIf="emerglastname.errors?.forbiddenName">
+                                             Name cannot be Bob.
+                                          </div>
+                                       </div>
+                                    
+                                    </div>
+
+                                    
+
+                                 <div class="col-sm-6">
+                                    <label for="relationship" class="form-label">Relationship</label>
+                                    <select class="form-select" id="titleid" [(ngModel)]="emergRelationship" name="emergRelationship" required>
+                                       <option value="Father">Father</option>
+                                       <option value="Mother">Mother</option>
+                                       <option value="Sibling">Sibling</option>
+                                       <option value="Spouce">Spouce</option>
+                                       <option value="Friend">Friend</option>
+                                       <option value="Other">Other</option>
+                                    </select>
+                                    <div class="invalid-feedback">
+                                       Please select a valid Relationship
+                                    </div>
+                                 </div>
+
+
+
+                                 <div class="col-6" style="margin-top: 5px;">
+                                    <label for="emergContact" class="form-label">Contact</label>
+                                    <input type="tel" [(ngModel)]="emergContact" #demergcontact="ngModel" name="emergContact" id="emergContact"
+                                       class="form-control" placeholder="" minlength="10" required number>
+
+                                    <div *ngIf="demergcontact.invalid && (demergcontact.dirty || demergcontact.touched)">
+                                       <div *ngIf="demergcontact.errors?.required" class="validation_error_red">
+                                          contact is required.
+                                       </div>
+                                       <div *ngIf="demergcontact.errors?.minlength" class="validation_error_red">
+                                          contact length should be 10
+                                       </div>
+                                       <div *ngIf="demergcontact.errors?.forbiddenName">
+                                          Name cannot be Bob.
+                                       </div>
+                                    </div>
+                                 </div>
+
+                                 <div class="col-12" style="margin-top: 5px;">
+                                    <label for="emergEmail" class="form-label">Email Id</label>
+                                    <input type="emergEmail" [(ngModel)]="emergEmail" #email="ngModel"
+                                       pattern="[(A-Z)(a-z)0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" name="emergEmail" id="emergEmail" class="form-control"
+                                       placeholder="" required email>
+
+                                    <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                                       <div *ngIf="email.errors?.required" class="validation_error_red">
+                                          email is required.
+                                       </div>
+                                       <div *ngIf="email.errors?.minlength" class="validation_error_red">
+                                          email length small
+                                       </div>
+                                       <div *ngIf="email.errors?.pattern" class="validation_error_red">
+                                          not a valid email
+                                       </div>
+                                       <div *ngIf="email.errors?.forbiddenName">
+                                          Name cannot be Bob.
+                                       </div>
+                                    </div>
+                                 </div>
+
+                                 <div class="col-sm-12">
+                                    <label for="Home Address" class="form-label">Home Address</label>
+                                    <textarea rows="4" cols="100" class="form-control" id="emergHomeAddress"
+                                       name="emergHomeAddress" [(ngModel)]="emergHomeAddress" #emerghomeaddress="ngModel">Enter Address here...</textarea>
+                                 </div>
+                                                              
+                                 <div class="col-sm-6" style="margin-left: 10px;">
+                                    <div class="form-group">
+                                       <label for="hasAllergy" class="form-label">Any Allergy</label>
+                                       </div>
+                                       <div style="margin-left: 20px;">
+                                             <div>
+                                             <input id="Yes" name="hasAllergy" value="Yes" type="radio"  [value]="1" 
+                                             (click)="showhideUtility()"
+                                             [(ngModel)]="hasAllergy" #Yes="ngModel"
+                                                class="form-check-input" required>
+                                                <label class="form-check-label" for="Yes">Yes</label>
+                                             </div>
+                                             <div>
+                                                <input id="No" name="hasAllergy"  value="No" type="radio" [value]="0"
+                                                (click)="hideUtility()"
+                                                [(ngModel)]="hasAllergy" #No="ngModel"
+                                                class="form-check-input" required>
+                                                <label class="form-check-label" for="No">No</label>
+                                             </div>
+                                                                                          
+                                       </div>
+                                 </div>
+                           </div>
+                        </div>
+                 
+               </div>
+               <br>
+               <br>
+          
+                  <div class="container">
+                     <div class="row g-5">
+                        <app-allergy (parentFunction)="parentFunction($event)" *ngIf="visible"></app-allergy> 
+                     </div> 
+
+                  </div> 
+
+                  <div *ngIf="showTab"   class="col-md-12  ">
+                     <h4 class="mb-3">Allergy Added</h4>
+                       <table class="table table-bordered table-striped table-hover">
+                         <thead style="background-color:rgb(219, 208, 208);">
+                           <tr>
+                             <th scope="col">Allergy Id</th>
+                             <th scope="col">Allergy Name</th>
+                             <th scope="col">Allergy Type</th>
+                             <th scope="col">Allergy Description</th>
+                             <th scope="col">Allergy Clinical Information</th>
+                             <th scope="col">Is Allergy Fatal</th>
+                           </tr> 
+                        </thead>
+                           <tr *ngFor="let allergy of allergies">
+                              <td> {{allergy.allergyId}}   </td>
+                              <td> {{allergy.allergyName}}    </td>
+                              <td> {{allergy.allergyType}}  </td>
+                              <td> {{allergy.allergyDescription}}  </td>
+                              <td> {{allergy.allergyClinicalInformation}}    </td>
+                              <td> {{allergy.isFatal}}    </td>
+                           </tr>
+                       
+                       </table>
+                   </div>
+
+
+
+               <br>
+               <br>
+                <button id="submitbutton" class="w-10 btn btn-primary btn-lg" type="button" (click)="onSave($event)"
+               href="#myModal" data-toggle="modal">Submit</button>
+            </form>   
+      </form>
+     </div>
+   </div>
+      </div>
+
+      <br>
+<app-footer></app-footer>

@@ -1,0 +1,75 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="order-md-first">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col-6 center order-md-last upper_space">
+            <form (ngSubmit)="onSubmit(note)" #note="ngForm">
+                <h1 class="bottom_space">Send Notes</h1> 
+                <!--<div class="form-group">
+                     <label for="searchName">Search</label> 
+                    <input type="text" class="form-control" name="searchName" [(ngModel)]="searchName" (input)="nameChange($event)" id="searchName" placeholder="Search Name">
+                </div> 
+                <div class="form-group">
+                    <label for="name">Reciever's Name</label>
+                    <select class="form-control" name="reciever" [(ngModel)]="selectedName" (change)="onSelect($event)">
+                        <option  value="0">--Select User--</option>
+                        <option  *ngFor="let profile of profiles" [value]="profile.firstName">{{profile.firstName}}&nbsp;{{profile.lastName}}</option>
+                    </select>
+                </div>  -->
+                <div class="form-group">
+                    <label for="reciever">Reciever's Name</label>
+                    <input id="reciever"  type="text" class="form-control" name="reciever" placeholder="reciever"
+                    (ngModelChange)="onSelect($event)"
+                    [(ngModel)]="profile"
+                            [ngbTypeahead]="search"
+                            [editable]='false'
+                            [inputFormatter]="inputFullNameValue"
+                            [resultFormatter]="resultFullNameValue"
+                            />
+                </div>
+                <div class="form-group">
+                    <label for="role">Reciever's Designation</label>
+                    <input type="text" name="role" [(ngModel)]='role' class="form-control" id="role" [value]="role" placeholder="Reciever's Designation" disabled>
+
+                    <!-- <select class="form-control" >
+                        <option value="0">--Select Designation--</option>
+                        <option></option>
+                    </select> -->
+                </div>  
+               
+                <div class="form-group">
+                    <label name="message" for="message">Message</label>
+                    <textarea name="message" ngModel id="message"class="form-control" rows="5"></textarea>
+                    <!-- <span class="validation_error_red" *ngIf="!message.valid && message.touched">Please enter a message</span> -->
+
+                </div>  
+                <div class="radio" >
+                    <label>
+                    <input type="radio" name="urgency" ngModel id="Radios1" value="true">
+                    Urgent
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                    <input type="radio" name="urgency" ngModel id="Radios2" value="false" checked="true">
+                    Not Urgent
+                    </label>
+                </div>
+                <button type="submit"  class="btn btn-info">Send</button>
+                </form>
+                <div class="p-4"></div>
+            <div class="p-4"></div>
+        </div>
+        
+    </div>                                  
+</div>
+   <!-- <div class="form-group">
+                    <label for="date-time" class="form-label">Date and Time </label>
+                    <div class="input-group date" data-provide="datepicker">
+                        <input type="date" id="dob" class="form-control">
+                        <div class="input-group-addon">
+                            <span class="glyphicon glyphicon-th"></span>
+                        </div>
+                    </div>
+                </div>     -->

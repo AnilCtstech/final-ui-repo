@@ -1,0 +1,236 @@
+<div *ngIf="!hasAppointmentsToday">
+    <div class="row">
+        <div class="order-md-first">
+            <app-sidebar></app-sidebar>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+            <div class="p-4"></div>
+        </div>
+
+        <div class="col center order-md-last" style="margin-top: 5%;">
+
+            <h4 class="text-primary p-5" style="margin-left: 40%;display: inline;">Appointments</h4>
+            <h1 class="text-center text-danger text-uppercase font-weight-bold shadow p-7 mb-5 bg-white rounded"
+                style="width: 70%;margin-left: 15%;margin-top: 2%;">There are no
+                appointments today</h1>
+        </div>
+    </div>
+
+</div>
+
+
+
+<div *ngIf="hasAppointmentsToday" class="container-fluid">
+    <div class="row">
+        <div class="order-md-first">
+            <app-sidebar></app-sidebar>
+
+        </div>
+
+        <div class="col-9 center order-md-last " style="margin-top: 2%;">
+
+            <div *ngIf="role =='PHYSICIAN' " class="input-group"
+                style="margin-top: 3px;margin-bottom: 5px;width: 70%;margin-left: 34%;">
+                <b style="margin-top: 4px;">Search Appointment History</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control"
+                    placeholder="Enter name here" aria-label="Enter name here" aria-describedby="basic-addon2"
+                    [(ngModel)]="name">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" id="patientName" type="button"
+                        (click)="getPatientAppintmentHistory($event)">Patient</button>
+                </div>
+            </div>
+
+            <div *ngIf="role =='NURSE' " class="input-group"
+                style="margin-top: 3px;margin-bottom: 5px;width: 70%;margin-left: 34%;">
+                <b style="margin-top: 4px;">Search Appointment History</b>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" class="form-control"
+                    placeholder="Enter name here" aria-label="Enter name here" aria-describedby="basic-addon2"
+                    [(ngModel)]="name">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="button"
+                        (click)="getPatientAppintmentHistory($event)">Patient</button>
+                    <button class="btn btn-outline-secondary" type="button"
+                        (click)="getPhysicianAppintmentHistory($event)">Physician</button>
+                </div>
+            </div>
+
+            <div id="accordion" *ngIf="hasAppointmentsToday" class="adjust_appointments_view" style="margin-top: 2%;">
+
+                <div class="card" *ngFor="let obj of weekklyAppointmentList | paginate: 
+                    { itemsPerPage: 8, currentPage: p } ;let i = index;">
+                    <div class="card-header active_appointment"
+                        [ngStyle]="{'background-color': (i==0) ? '  rgb(105, 165, 218)' : 'rgb(235, 233, 224)'}"
+                        id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapseOne'+i"
+                                aria-expanded="true" [attr.aria-controls]="'collapseOne'+i">
+                                <!-- <b>
+                                    <pre><div style="display: inline;">{{obj.title.substring(0,40)}}                                    </div><div style="display: inline;">{{obj.date | date:'dd/MM/yyyy'}}</div>   <div style="display: inline;" *ngIf="role !='PATIENT'"><button type="button" (click)="declineAppointment(obj)" class="btn btn-danger">Decline Appointment</button></div></pre>
+                                </b> -->
+
+                                <div style="width: 100%;">
+
+                                    <div>
+                                        <div style="display: inline; width: 200px;max-width: 200px;">
+                                            {{formatString(obj.title)}} </div>
+                                        <div style="display: inline;width: 20px;max-width: 20px;margin-left: 150px;">{{obj.date
+                                            |
+                                            date:'dd/MM/yyyy'}}
+                                        </div>
+
+                                        <button type="button" (click)="declineAppointment(obj)"
+                                            class="btn btn-danger float-right"
+                                            style=" display: inline;margin-right: 3px;margin-left: 70px;" *ngIf="role !='PATIENT'">Decline
+                                            Appointment</button>
+
+                                    </div>
+
+                                </div>
+
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div [attr.id]="'collapseOne'+i" class="collapse show " aria-labelledby="headingOne"
+                        data-parent="#accordion">
+                        <div class="card-body">
+
+                            <b>Title : {{obj.title}} </b> <br>
+                            <b>Description : {{obj.description}} </b><br>
+                            <b>Physician : {{obj.physician}}</b><br>
+                            <b>Date : {{obj.date | date:'dd/MM/yyyy' }}</b><br>
+                            <b>Time : {{obj.time}}</b>
+
+                            <b *ngIf="role =='PATIENT'  && obj.accepted"><br> Accepted Status : <span
+                                    class="badge badge-success">Appointment accepted</span></b>
+
+                            <b *ngIf="role =='PATIENT'  && !obj.accepted"><br>Accepted Status : <span
+                                    class="badge badge-danger">Appointment rejected</span></b>
+
+                            <div *ngIf='obj.editHistory.length == 0 && role =="PATIENT"'><b>Appointment Reschedule
+                                    History : NA</b></div>
+
+                            <div *ngIf="obj.editHistory.length > 0 && role =='PATIENT'"><b>Appointment Reschedule
+                                    History :</b></div>
+
+                            <div *ngIf='obj.editHistory.length == 0 && (role =="NURSE"|| role =="PHYSICIAN")'><b>Edit
+                                    History : NA</b></div>
+
+                            <div *ngIf='obj.editHistory.length > 0 && (role =="NURSE"|| role =="PHYSICIAN")'><b>Edit
+                                    History :</b></div>
+
+                            <p>
+                            <ul class="list-group" *ngFor="let singleObj of obj.editHistory">
+                                <div>
+                                    <li class="list-group-item bg-light text-dark">Appointment Id : {{singleObj["id"]}}
+                                    </li>
+                                </div>
+                                <li class="list-group-item">Edit Time : {{singleObj["timeOfEdit"]}}</li>
+                                <li class="list-group-item">Employee Detail : {{singleObj["employeeDetail"]}}</li>
+                                <li class="list-group-item">Reason : {{singleObj["reason"]}}</li>
+                                <li class="list-group-item"> Previsous Appointment Details
+                                    : <br>{{singleObj["previousAppintmentDetails"] }}</li>
+                                <hr>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+                <br>
+                <pagination-controls (pageChange)="p = $event" class="float-right">
+                </pagination-controls>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+                <div class="p-4"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- <div class="row" style="margin-left: 81.7%;margin-top: 2%;">
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div> -->
+
+</div>
+
+
+
+<!--
+<div *ngIf="hasAppointmentsToday" class="container-fluid">
+    <div class="row">
+        <div class="order-md-first">
+            <app-sidebar></app-sidebar>
+        </div>
+        <div class="col center order-md-last ">
+
+            <div id="accordion" class="adjust_appointments_view">
+
+                <div class="card" *ngFor="let obj of weekklyAppointmentList; let i = index">
+                    <div class="card-header active_appointment"
+                        [ngStyle]="{'background-color': (i==0) ? '  rgb(105, 165, 218)' : 'rgb(235, 233, 224)'}"
+                        id="headingOne">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#collapseOne'+i"
+                                aria-expanded="true" [attr.aria-controls]="'collapseOne'+i">
+                                <b>
+                                    <pre>{{obj.title}}                                                      {{obj.date}}</pre>
+                                </b>
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div [attr.id]="'collapseOne'+i" class="collapse show " aria-labelledby="headingOne"
+                        data-parent="#accordion">
+                        <div class="card-body">
+
+                            <b>Title : {{obj.title}} </b> <br>
+                            <b>Description : {{obj.description}} </b><br>
+                            <b>Physician : {{obj.physician}}</b><br>
+                            <b>Date : {{obj.date}}</b><br>
+                            <b>Time : {{obj.time}}</b><br>
+                            <b>Edit History : {{obj.editHistory}}</b><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->

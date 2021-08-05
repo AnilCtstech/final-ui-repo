@@ -1,0 +1,76 @@
+<div>
+  <!-- <br><pre><h4><span style="color: rgb(62, 41, 180); float:right">
+                              <i class="fas fa-hospital-user fa-lg" aria-hidden="true"></i>&nbsp;<em>profile.firstName</em></span>
+                            </h4></pre><br>   -->
+  <h4 class="mb-3">Procedure Details</h4>
+    <form class="needs-validation"  novalidate>
+      <div class="row g-3">   
+        <div class="col-sm-3 form-group">
+            <label for="procedureCode" class="form-label">Code</label>
+            <input id="procedureCode"  type="text" class="form-control" name="procedureCode" placeholder="Procedure Code"
+                    [(ngModel)]="procedures"
+                    [ngbTypeahead]="searchCode"
+                    [editable]='false'
+                    [inputFormatter]="inputCodeFormatValue"
+                    [resultFormatter]="resultCodeFormatValue"
+                    />
+        </div><br>
+        <div class="col-sm-9">
+            <label for="description" class="form-label">Description</label>
+            <input id="description"  type="text" class="form-control" name="description"  placeholder="Add Description"
+            [(ngModel)]="procedures"
+            [ngbTypeahead]="searchDescription"
+            [editable]='false'
+            [inputFormatter]="inputDescriptionFormatValue"
+            [resultFormatter]="resultDescriptionFormatValue"
+            />
+        </div><br>          
+        <div class="col-sm-6"><br>
+          <label for="isDepricated" class="form-label">Procedure is depricated?</label>
+            <div class="radio" >
+              <label>
+              <input type="radio" name="isDepricated" [(ngModel)]="isDepricated" id="Radios1" value="true">
+              Yes
+              </label>
+          </div>
+          <div class="radio">
+              <label>
+              <input type="radio" name="isDepricated" [(ngModel)]="isDepricated" id="Radios2" value="false" checked>
+              No
+              </label>
+          </div>
+        </div>
+        
+    </div>
+    <br>
+    <button class="w-5 btn btn-primary btn-lg" (click)="addProcedure()"type="button">Save</button>&nbsp;
+    <button class="w-10 btn btn-primary btn-lg" (click)="onSubmit()" type="button">Submit</button>
+    </form><br>
+  
+  <div style="text-align:center">
+    <table *ngIf="index>0" class="table table-bordered table-striped table-hover">
+      <thead>
+          <tr>
+          <th>Procedure Code</th>
+          <th>Description</th>
+          <th>Is Depricated</th>
+          <th>Action</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let procedure of procedures1; let i=index;">
+          <td>{{procedure.procedureCode}}</td>
+          <td>{{procedure.procedureDescription}}</td>
+          <td>{{procedure.procedureIsdeprecated}}</td> 
+         <td> <i  (click)="removeProcedure(i)" class="fas fa-trash"></i></td>
+          <!-- <td><i type="button" (click)="removeProcedure(i)" class="btn btn-danger btn-sm">Clear</button></td> -->
+          <!-- <td><button type="button" (click)="removeProcedure(i)" class="btn btn-danger btn-sm">Clear</button></td> -->
+          </tr>              
+      </tbody>
+</table>
+    
+  
+    <!-- <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls> -->
+  
+  </div><hr>
+</div>

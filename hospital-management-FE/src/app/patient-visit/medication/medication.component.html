@@ -1,0 +1,98 @@
+<div>
+       <h4 class="mb-3">Medication Details</h4>
+       <form class="needs-validation"  novalidate>
+        <div class="row g-3">   
+          <div class="col-sm-3 form-group">
+              <label for="drugId" class="form-label">Drug Id</label>
+              <input id="drugId"  type="text" class="form-control" name="drugId" placeholder="Drug Id"
+                      [(ngModel)]="medications"
+                      [ngbTypeahead]="searchCode"
+                      [editable]='false'
+                      [inputFormatter]="inputCodeFormatValue"
+                      [resultFormatter]="resultCodeFormatValue"
+                      />
+          </div><br>
+          <div class="col-sm-9">
+              <label for="drugName" class="form-label">Drug Name</label>
+              <input id="drugName"  type="text" class="form-control" name="drugName"  placeholder="Drug Name"
+              [(ngModel)]="medications"
+              [ngbTypeahead]="searchDrugName"
+              [editable]='false'
+              [inputFormatter]="inputDrugNameFormatValue"
+              [resultFormatter]="resultDrugNameFormatValue"
+              />
+          </div><br>
+          <div class="col-sm-4">
+            <label for="drugStrength" class="form-label">Drug Strength</label>
+            <input id="drugStrength"  type="text" class="form-control" name="drugStrength"  placeholder="Drug Strength"
+            [(ngModel)]="medications"
+            [ngbTypeahead]="searchFilter"
+            [editable]='false'
+            [inputFormatter]="inputDrugStrengthFormatValue"
+            [resultFormatter]="resultDrugStrengthFormatValue"
+            />
+          </div><br> 
+          <div class="col-sm-4">
+            <label for="drugGenericName" class="form-label">Generic Name</label>
+            <input id="drugGenericName"  type="text" class="form-control" name="drugGenericName"  placeholder="Generic Name"
+            [(ngModel)]="medications"
+            [ngbTypeahead]="searchFilter"
+            [editable]='false'
+            [inputFormatter]="inputGenericNameFormatValue"
+            [resultFormatter]="resultGenericNameFormatValue"
+            />
+        </div><br>    
+                
+        <div class="col-sm-4">
+          <label for="drugForm" class="form-label">Drug Form</label>
+          <input id="drugForm"  type="text" class="form-control" name="drugForm"  placeholder="Drug Form"
+          [(ngModel)]="medications"
+          [ngbTypeahead]="searchFilter"
+          [editable]='false'
+          [inputFormatter]="inputDrugFormFormatValue"
+          [resultFormatter]="resultDrugFormFormatValue"
+          />
+        </div><br> 
+          
+      </div>
+      <br>
+      <button class="w-5 btn btn-primary btn-lg" (click)="addMedication()"type="button">Save</button>&nbsp;
+      <button class="w-10 btn btn-primary btn-lg" (click)="onSubmit()" type="button">Submit</button>
+      </form><br>
+       
+      
+      <div style="text-align:center">
+        <table *ngIf="index>0" class="table table-bordered table-striped table-hover">
+          <thead>
+              <tr>
+              <th>Drug Id</th>
+              <th>Drug Name</th>
+              <th>Generic Drug Name</th>
+              <th>Drug Strength</th>
+              <th>Drug Form</th>
+              <th>Delete</th>
+
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let medication of medications1; let i=index;">
+              <td>{{medication.drugId}}</td>
+              <td>{{medication.drugName}}</td>
+              <td>{{medication.drugGenericName}}</td>
+              <td>{{medication.drugStrength}}</td>
+              <td>{{medication.drugForm}}</td>       
+              <td>
+                <i  (click)="removeMedication(i)"  class="fas fa-trash"></i>
+              </td>
+              </tr>
+                      
+          </tbody>
+          </table>
+        
+      
+        <!-- <pagination-controls (pageChange)="pageChanged($event)"></pagination-controls> -->
+      
+      </div>
+     
+
+</div>
