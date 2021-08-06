@@ -49,6 +49,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { SendNoteComponent } from './note/send-note/send-note.component';
 import { AdminDasboardComponent } from './admin-dasboard/admin-dasboard.component';
 import {ChartsModule } from 'ng2-charts';
+import { StaffManagementComponent } from './staff-management/staff-management.component';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import {ChartsModule } from 'ng2-charts';
     VisitDetailsComponent,
     PatientManagementComponent,
     AdminDasboardComponent,
+    StaffManagementComponent
     
   
     
