@@ -7,15 +7,17 @@
   <form class="needs-validation" novalidate>
 
     <div class="py-5 text-center">
-      <h2>Schedule an Appointment</h2>
-    </div>
-    <div class="row g-5" style="margin-left: 18%;">
-      <div class="col-md-7 col-lg-8">
-        <form ngForm #f>
+      <h1>Schedule an Appointment</h1>
+    </div>         
+    <form #f="ngForm">
+    <div class="row g-5"> 
+      <div class="col-md-6">
+        <h4 style="margin-left: 1%;"> Appointment Details </h4>
           <div class="row g-3">
-            <div class="col-12">
+            
+            <div class="col-sm-6">
               <label for="physicianName" class="form-label">Physician Name</label>
-              <select class="form-select" id="physicianId" #phyName="ngModel" [(ngModel)]="physicianName" name="physicianName" (change)="changeEmployeeInfo($event)" required>
+              <select class="form-select" id="phyName" #phyName="ngModel" [(ngModel)]="physicianName" name="physicianName" (change)="changeEmployeeInfo($event)" required>
                 <option value="0" selected>--Select User--</option>
                         <option *ngFor="let profile of profiles" [value]="profile.firstName">{{profile.firstName}}&nbsp;{{profile.lastName}}</option>
               </select>
@@ -23,22 +25,19 @@
                 <div *ngIf="phyName.errors?.required" class="validation_error_red">
                   Physician Name is required.
                 </div>
-               <!-- <div *ngIf="phyName.errors?.minlength" class="validation_error_red">
-                  contact length should be 10
-                </div>-->
               </div>
             </div>
 
             <br>
-            <div class="col-12">
+            <div class="col-sm-6">
               <label for="empId" class="form-label">Employee ID</label>
-              <input type="text" class="form-control" id="empId" [(ngModel)]="employeeID" value="EMP101" name="employeeID" readonly>
+              <input type="text" class="form-control" id="empId" [(ngModel)]="employeeId" value="EMP101" name="employeeId" readonly>
             </div>
 
             <div class="col-12" style="margin-top: 5px;">
-              <label for="descriptiveInfo" class="form-label">Descriptive Information</label>
-              <input type="text" [(ngModel)]="descriptiveInfo" #descInfo="ngModel" name="descriptiveInfo"
-                id="descriptiveInfo" class="form-control" placeholder="" minlength="10" required number>
+              <label for="description" class="form-label">Descriptive Information</label>
+              <input type="text" [(ngModel)]="description" #descInfo="ngModel" name="description"
+                id="description" class="form-control" placeholder="" minlength="10" required number>
 
               <div *ngIf="descInfo.invalid && (descInfo.dirty || descInfo.touched)">
                 <div *ngIf="descInfo.errors?.required" class="validation_error_red">
@@ -50,12 +49,11 @@
               </div>
             </div>
 
-
-            <div class="col-12" style="margin-top: 10px;">
-              <label for="doa" class="form-label">Date of an Appointment </label>
+            <div class="col-sm-6" style="margin-top: 10px;">
+              <label for="appointmentDate" class="form-label">Date of an Appointment </label>
               <div class="input-group date" data-provide="datepicker">
-                <input type="date"  [(ngModel)]="doa"
-                  #ddate="ngModel" name="doa" id="doa" class="form-control" required date>
+                 <input type="date"  [(ngModel)]="appointmentDate"
+                  #ddate="ngModel" name="appointmentDate" id="appointmentDate" class="form-control" (change)="onChangeDate($event)" required date>
 
                 <div *ngIf="ddate.invalid && (ddate.dirty || ddate.touched)">
                   <div *ngIf="ddate.errors?.required" style="color: red;">
@@ -66,21 +64,14 @@
               </div>
             </div>
 
-
-            <div class="col-12">
+            <div class="col-sm-6"  style="margin-top: 10px;">
               <label for="slotsAvail" class="form-label">Available Slots</label>
-              <select class="form-select" #slot="ngModel" id="slotsId" [(ngModel)]="slotsAvail" name="slotsAvail" required>
-                <option selected>09:00 AM - 09:15 AM</option>
-                <option>09:15 AM - 09:30 AM</option>
-                <option>09:30 AM - 09:45 AM</option>
-                <option>09:45 AM - 10:00 AM</option>
+              <select class="form-select" #slot="ngModel" id="slotsId" [(ngModel)]="slotsAvail" name="slotsAvail" (change)="onChangeSlot($event)" required>
+                <option *ngFor="let slot of slots" [value]="slot.slots">{{slot.slots}}</option>
               </select>
               <div *ngIf="slot.invalid && (slot.dirty || slot.touched)">
                 <div *ngIf="slot.errors?.required" style="color: red;">
-                  Enter Valid Slot
-                </div>
-                <div *ngIf="slot.errors?.minlength" class="validation_error_red">
-                  enter valid date
+                  Please Select the Slot
                 </div>
               </div>
             </div>
@@ -101,12 +92,28 @@
 
             <div class="col-12" style="margin-top: 10px;">
               <label for="meetingTitle" class="form-label">Meeting Title</label>
-              <input type="text" class="form-control" id="meetingTitle" [(ngModel)]="meetTitle" value="Physiotherapy" name="meetTitle">
-            </div>
-
-            <br><br><br>
-            <h4 style="margin-left: 3%;"> Patient Information </h4>
-            <div class="row g-3" style="margin-left: 1%;">
+              <input type="text" class="form-control"#meetTitle="ngModel" id="meetingTitle" [(ngModel)]="meetingTitle" value="Physiotherapy" name="meetingTitle">
+              <div *ngIf="meetTitle.invalid && (meetTitle.dirty || meetTitle.touched)">
+                <div *ngIf="meetTitle.errors?.required" style="color: red;">
+                  Enter Valid Patients
+                </div>
+              </div>
+            </div> 
+            
+            <div class="col-12" style="margin-top: 10px;">
+              <label for="editReason" class="form-label" [hidden]="!isVisible">Reason of Edit</label>
+              <input type="text" class="form-control" [hidden]="!isVisible" #reason="ngModel" id="editReason" [(ngModel)]="editReason" name="editReason">
+              <div *ngIf="reason.invalid && (reason.dirty || reason.touched)">
+                <div *ngIf="reason.errors?.required" style="color: red;">
+                  Enter Valid Patients
+                </div>
+              </div>
+            </div> 
+        </div>
+        </div>
+        <div class="col-md-6"> 
+            <h4> Patient Information </h4>
+            <div class="row gy-4">
               <div class="col-sm-2">
                 <label for="title" class="form-label">Title</label>
                 <input type="text" class="form-control" id="title" value="" [(ngModel)]="title" name="title" readonly>
@@ -119,9 +126,14 @@
                 <label for="lastName" class="form-label">Last name</label>
                 <input type="text" class="form-control" id="lastName" placeholder="" value="" [(ngModel)]="lName" name="lName" readonly>
               </div>
-              <div class="col-12">
+              <div class="col-6">
                 <label for="email" class="form-label">Email </label>
                 <input type="email" class="form-control" id="email" [(ngModel)]="email" name="email" readonly>
+              </div>
+              
+              <div class="col-6">
+                <label for="contact" class="form-label">Contact</label>
+                <input type="contact" class="form-control" id="contact" [(ngModel)]="contact" name="contact" readonly>
               </div>
               <div class="col-sm-4">
                 <label for="dob" class="form-label">Date of Birth </label>
@@ -136,12 +148,8 @@
                 <input type="text" id="gender" class="form-control" [(ngModel)]="gender" name="gender" readonly>
               </div>
               <div class="col-12">
-                <label for="contact" class="form-label">Contact</label>
-                <input type="contact" class="form-control" id="contact" [(ngModel)]="contact" name="contact" readonly>
-              </div>
-              <div class="col-12">
                 <label for="homeAddress">Home Address</label>
-                <textarea id="homeAddress" name="homeAddress" cols="30" rows="5" class="form-control" [(ngModel)]="hAddress" name="hAddress" readonly>
+                <textarea id="homeAddress" name="homeAddress" cols="30" rows="3" class="form-control" [(ngModel)]="hAddress" name="hAddress" readonly>
                     </textarea>
               </div>
               <div class="col-sm-6">
@@ -155,63 +163,59 @@
 
             </div>
           </div>
-          <br><br>
+          </div>
+          <br>
 
-            <button id="submitbutton" class="w-10 btn btn-primary btn-lg" type="button" (click)="onSave($event)"
-              href="#myModal" data-toggle="modal">Add Appointment</button>
+            <button style="margin-left: 1%;" id="submitButton" [hidden]="isVisible" class="w-10 btn btn-primary btn-lg" type="button" (click)="onSave($event)"
+              href="#myModal" data-toggle="modal">Save</button>
+              <button style="margin-left: 1%;" id="submitButton" [hidden]="!isVisible" class="w-10 btn btn-primary btn-lg" type="button" (click)="onEditSave($event)"
+              href="#myModal" data-toggle="modal">Save</button>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              <button style="margin-left: 1%;" id="submitButton" [hidden]="!isVisible" class="w-10 btn btn-primary btn-lg" type="button" (click)="onCancelEdit($event)"
+              href="#myModal" data-toggle="modal">Cancel Edit</button>
             
         </form>
-      </div>
-    </div>
   </form>
-</div>
-</div>
-</div>
 
-<!--bootstrap appointment success -->
-<div id="myModal" class="modal fade">
-  <div class="modal-dialog modal-confirm">
-    <div class="modal-content">
-      <div class="modal-header">
-        <div class="icon-box">
-          <i class="material-icons">&#xE876;</i>
-        </div>
-        <h4 class="modal-title">Appointment success!</h4>
-      </div>
-      <div class="modal-body">
-        <p class="text-center">Scheduled an Appointment Successfully!!!</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-success btn-block" data-dismiss="modal" (click)="reloadPage()">OK</button>
-      </div>
-    </div>
+<br>
+<table [hidden]="isTableVisible" class="table table-bordered table-striped table-hover">
+  <thead>
+      <tr>
+      <th class="text-center" >Appointment Id </th>
+      <th class="text-center" >Physician Name</th>
+      <th class="text-center" >Appointment Date</th>
+      <th class="text-center" >Appointment Time</th>
+      <th class="text-center">Description</th>
+      <th class="text-center" >Patient Id</th>
+      <th class="text-center">Edit </th>
+      <th class="text-center">Delete</th>
+
+      </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let obj of appointments | orderBy:key : reverse | paginate :{itemsPerPage:5,currentPage:p};">
+   
+      <td class="text-center">{{obj.appointmentId}}</td>
+      <td class="text-center">{{obj.physician}}</td>
+      <td class="text-center">{{obj.date}}</td>
+      <td class="text-center">{{obj.time}}</td>
+      <td class="text-center">{{obj.description}}</td>
+      <td class="text-center">{{obj.patientId}}</td>
+      <td class="text-center"><button type="button" class="btn btn-primary btn-sm" (click)="edit(obj.appointmentId)">Edit</button>                
+        <td class="text-center"><button type="button" class="btn btn-primary btn-sm" (click)="onDelete(obj.appointmentId)">Delete</button>                
+      </td>
+      </tr>
+              
+  </tbody>
+  </table>
+    <pagination-controls [hidden]="isTableVisible" (pageChange)="p = $event"></pagination-controls> 
+   
   </div>
 </div>
-
-<!--sign up sucess modal end-->
-
-
-<div style="margin-top: 40px;">
+</div>
+<div style="margin-top: 0px;">
   <app-footer></app-footer>
 </div>
 
 <script>
-  // Example starter JavaScript for disabling form submissions if there are invalid fields
-  let validator = (function () {
-    'use strict';
-    window.addEventListener('load', function () {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('needs-validation');
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function (form) {
-        form.addEventListener('submit', function (event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
-          }
-          form.classList.add('was-validated');
-        }, false);
-      });
-    }, false);
-  })();
+  
 </script>
